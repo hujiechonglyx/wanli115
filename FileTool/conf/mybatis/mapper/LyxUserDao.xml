@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyx.dao.LyxUserDao">
+
+	<resultMap type="com.lyx.bean.User" id="userMap">
+		<id property="userid" column="userid"/>
+		<result property="username" column="username"/>
+		<result property="password" column="password"/>
+		<result property="empname" column="empname"/>
+		<result property="email" column="email"/>
+		<result property="department" column="department"/>
+		<result property="privilege" column="privilege"/>
+	</resultMap>
+	
+	<!-- public User login(@Param("username")String username, @Param("password")String password); -->
+	<select id="login" resultMap="userMap">
+		<if test="username!=null and !username.equals(&quot;&quot;) and password!=null and !password.equals(&quot;&quot;)">
+			select * from user where username=#{username} and password=#{password} limit 1
+		</if>
+	</select>
+	
+	<!-- public int addUser(User user); -->
+	<insert id="addUser">
+		<if test="username!=null and !username.equals(&quot;&quot;)">
+			INSERT INTO user(userid,username,password,empname,email,department,privilege) VALUES(#{userid},#{username},#{password},#{empname},#{email},#{department},#{privilege})
+		</if>
+	</insert>
+	
+	<!-- public List<User> findUser(@Param("empname")String empname, @Param("department")String department); -->
+	<select id="findUser" resultMap="userMap">
+		select * from user
+		<where>
+			1=1
+			<if test="empname!=null and !empname.equals(&quot;&quot;)">
+				and empname like "%"#{empname}"%"
+			</if>
+			<if test="department!=null and !department.equals(&quot;&quot;)">
+				and department like "%"#{department}"%"
+			</if>
+		</where>
+	</select>
+	
+	<!-- public User findUserById(@Param("userid")String userid); -->
+	<select id="findUserById" resultMap="userMap">
+		select * from user where userid = #{userid}
+	</select>
+	
+	<!-- public int modifyUser(User user); -->
+	<update id="modifyUser">
+		update user
+		<set>
+			<if test="username!=null and !username.equals(&quot;&quot;)">
+				username = #{username},
+			</if>
+			<if test="password!=null and !password.equals(&quot;&quot;)">
+				password = #{password},
+			</if>
+			<if test="empname!=null and !empname.equals(&quot;&quot;)">
+				empname = #{empname},
+			</if>
+			<if test="email!=null and !email.equals(&quot;&quot;)">
+				email = #{email},
+			</if>
+			<if test="department!=null and !department.equals(&quot;&quot;)">
+				department = #{department},
+			</if>
+			<if test="privilege!=null and !privilege.equals(&quot;&quot;)">
+				privilege = #{privilege},
+			</if>
+		</set>
+		<where>
+			userid=#{userid}
+		</where>
+	</update>
+	
+	<!-- public int delUser(String userid); -->
+	<delete id="delUser">
+		DELETE FROM user WHERE userid = #{userid}
+	</delete>
+	
+</mapper>

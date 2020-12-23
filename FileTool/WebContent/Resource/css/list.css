@@ -1,0 +1,46 @@
+<style>
+* {
+	padding:0;
+	margin:0;
+}
+.main{
+	width: 100%;
+}
+
+.wrap {
+	width:90%;
+	margin:20px auto 0;
+}
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+	border:1px solid #c0c0c0;
+	width:100%;
+}
+th,td {
+	border:1px solid #d0d0d0;
+	color:#404060;
+}
+th {
+	background-color:#09c;
+	font:bold 16px "微软雅黑";
+	color:#fff;
+}
+td {
+	text-align:center;
+	font:14px "微软雅黑";
+}
+tbody tr {
+	background-color:#f0f0f0;
+}
+tbody tr {
+	cursor:pointer;
+	background-color:#fafafa;
+}
+
+
+
+.mysearch{
+	width: 90%;
+	margin: 0 auto;
+}
